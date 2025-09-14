@@ -1,6 +1,8 @@
+server:
+  port: 9901
 spring:
   application:
-    name: service1
+    name: central-secret-management
 
   datasource:
     driver-class-name: org.postgresql.Driver
