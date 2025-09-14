@@ -2,7 +2,7 @@ server:
   port: 9901
 spring:
   application:
-    name: central-secret-management
+    name: service1
 
   datasource:
     driver-class-name: org.postgresql.Driver
@@ -24,6 +24,6 @@ spring:
       kv:
         enabled: true
         backend: secret
-        default-context: application
-        application-name-context: true
+        default-context: service1
+        application-name-context: false
         profile-separator: ','

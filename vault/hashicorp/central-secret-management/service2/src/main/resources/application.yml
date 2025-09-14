@@ -2,7 +2,7 @@ server:
   port: 9902
 spring:
   application:
-    name: central-secret-management
+    name: service2
 
   datasource:
     driver-class-name: org.postgresql.Driver
@@ -20,10 +20,10 @@ spring:
     vault:
       uri: http://127.0.0.1:8200
       scheme: http
-      token: ${VAULT_TOKEN:root}
+      token: ${VAULT_TOKEN}
       kv:
         enabled: true
         backend: secret
-        default-context: application
-        application-name-context: true
+        default-context: service2
+        application-name-context: false
         profile-separator: ','
