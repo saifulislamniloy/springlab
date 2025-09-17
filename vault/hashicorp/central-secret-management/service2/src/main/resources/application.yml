@@ -3,11 +3,14 @@ server:
 spring:
   application:
     name: service2
-
-  datasource:
-    driver-class-name: org.postgresql.Driver
   config:
     import: vault://
+
+  datasource:
+    url: jdbc:postgresql://${SPRING_POSTGRES_HOST:localhost}:${SPRING_POSTGRES_PORT:5432}/${SPRING_POSTGRES_DB:mydb}
+    username: ${SPRING_POSTGRES_USERS:myuser}
+    password: ${SPRING_POSTGRES_PASSWORD:mypassword}
+    driver-class-name: org.postgresql.Driver
   jpa:
     hibernate:
       ddl-auto: update
@@ -21,6 +24,7 @@ spring:
       uri: http://127.0.0.1:8200
       scheme: http
       token: ${VAULT_TOKEN}
+#      token: ${VAULT_TOKEN_SELF_MANAGED}
       kv:
         enabled: true
         backend: secret
