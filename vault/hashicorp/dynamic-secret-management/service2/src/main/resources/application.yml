@@ -1,16 +1,13 @@
 server:
-  port: 9901
+  port: 9902
 spring:
   application:
-    name: service1
-  config:
-    import: vault://
+    name: service2
 
   datasource:
-    url: jdbc:postgresql://${SPRING_POSTGRES_HOST:localhost}:${SPRING_POSTGRES_PORT:5432}/${SPRING_POSTGRES_DB:mydb}
-    username: ${SPRING_POSTGRES_USERS:myuser}
-    password: ${SPRING_POSTGRES_PASSWORD:mypassword}
     driver-class-name: org.postgresql.Driver
+  config:
+    import: vault://
   jpa:
     hibernate:
       ddl-auto: update
@@ -27,6 +24,6 @@ spring:
       kv:
         enabled: true
         backend: secret
-        default-context: service1
+        default-context: service2
         application-name-context: false
         profile-separator: ','

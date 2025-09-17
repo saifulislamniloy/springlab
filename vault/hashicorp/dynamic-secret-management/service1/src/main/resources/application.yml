@@ -21,7 +21,7 @@ spring:
 
   cloud:
     vault:
-      uri: http://127.0.0.1:8200
+      uri: https://127.0.0.1:8202
       scheme: http
       token: ${VAULT_TOKEN}
       kv:
@@ -30,3 +30,8 @@ spring:
         default-context: service1
         application-name-context: false
         profile-separator: ','
+        backend-version: 2
+      ssl:
+        trust-store: file:/tmp/vault-truststore.p12
+        trust-store-password: changeit
+        trust-store-type: PKCS12
