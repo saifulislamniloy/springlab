@@ -6,22 +6,37 @@ spring:
   config:
     import: vault://
 
-  datasource:
-    url: jdbc:postgresql://${SPRING_POSTGRES_HOST:localhost}:${SPRING_POSTGRES_PORT:5432}/${SPRING_POSTGRES_DB:mydb}
-    username: ${SPRING_POSTGRES_USERS:myuser}
-    password: ${SPRING_POSTGRES_PASSWORD:mypassword}
-    driver-class-name: org.postgresql.Driver
-  jpa:
-    hibernate:
-      ddl-auto: update
-    show-sql: true
-    properties:
+  spring:
+    datasource:
+      url: jdbc:mysql://${SPRING_MYSQL_HOST:localhost}:${SPRING_MYSQL_PORT:3306}/${SPRING_MYSQL_DB:rnd}
+#      username: ${SPRING_MYSQL_USER:myuser}
+#      password: ${SPRING_MYSQL_PASSWORD:mypassword}
+      driver-class-name: com.mysql.cj.jdbc.Driver
+
+    jpa:
       hibernate:
-        dialect: org.hibernate.dialect.PostgreSQLDialect
+        ddl-auto: update
+      show-sql: true
+      properties:
+        hibernate:
+          dialect: org.hibernate.dialect.MySQL8Dialect
+
+  #  datasource:
+#    url: jdbc:postgresql://${SPRING_POSTGRES_HOST:localhost}:${SPRING_POSTGRES_PORT:5432}/${SPRING_POSTGRES_DB:mydb}
+#    username: ${SPRING_POSTGRES_USERS:myuser}
+#    password: ${SPRING_POSTGRES_PASSWORD:mypassword}
+#    driver-class-name: org.postgresql.Driver
+#  jpa:
+#    hibernate:
+#      ddl-auto: update
+#    show-sql: true
+#    properties:
+#      hibernate:
+#        dialect: org.hibernate.dialect.PostgreSQLDialect
 
   cloud:
     vault:
-      uri: https://127.0.0.1:8202
+      uri: https://127.0.0.1:8200
       scheme: http
       token: ${VAULT_TOKEN}
       kv:
@@ -31,6 +46,10 @@ spring:
         application-name-context: false
         profile-separator: ','
         backend-version: 2
+      database:
+        enabled: true
+        backend: database         # your secrets engine mount, default is "database"
+        role: vault
       ssl:
         trust-store: file:/tmp/vault-truststore.p12
         trust-store-password: changeit
