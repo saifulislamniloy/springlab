@@ -1,0 +1,84 @@
+plugins {
+    id 'java'
+    id 'java-library'  // Added for library development
+    id 'maven-publish' // Added - this provides publishToMavenLocal task
+    id 'org.springframework.boot' version '4.0.0'
+    id 'io.spring.dependency-management' version '1.1.7'
+}
+
+group = 'io.github.saifulislamniloy.springlab'
+version = '1.0.0'
+description = 'Demo project for Spring Boot'
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(21)
+    }
+    withSourcesJar() // Optional: creates sources JAR
+    withJavadocJar() // Optional: creates javadoc JAR
+}
+
+repositories {
+    mavenLocal()
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+}
+
+// Configure Maven publishing
+publishing {
+    publications {
+        maven(MavenPublication) {
+            from components.java // Publishes the Java component
+
+            // This ensures all dependencies have versions in the published POM
+            versionMapping {
+                usage('java-api') {
+                    fromResolutionOf('runtimeClasspath')
+                }
+                usage('java-runtime') {
+                    fromResolutionResult()
+                }
+            }
+
+            // Optional: customize POM
+            pom {
+                name = project.name
+                description = project.description
+                url = 'https://github.com/saifulislamniloy/springlab'
+
+                licenses {
+                    license {
+                        name = 'The Apache License, Version 2.0'
+                        url = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+                    }
+                }
+
+                developers {
+                    developer {
+                        id = 'saifulislamniloy'
+                        name = 'Saiful Islam Niloy'
+                        email = 'saiful.niloy.se@gmail.com'
+                    }
+                }
+            }
+        }
+    }
+}
+
+// Optional: Configure the JAR task if this is a library/starter
+bootJar {
+    enabled = false // Disable executable JAR for libraries
+}
+
+jar {
+    enabled = true // Enable plain JAR for libraries
+}
+
+tasks.named('test') {
+    useJUnitPlatform()
+}
