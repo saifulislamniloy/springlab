@@ -10,7 +10,7 @@ public class Service2Application  implements CommandLineRunner {
     @Value("${SPRING_POSTGRES_HOST:__missing__}") String host;
     @Value("${SPRING_POSTGRES_PORT:__missing__}") String port;
     @Value("${SPRING_POSTGRES_DB:__missing__}")   String db;
-    @Value("${SPRING_POSTGRES_USERS:__missing__}") String user;
+    @Value("${SPRING_POSTGRES_USER:__missing__}") String user;
     @Value("${SPRING_POSTGRES_PASSWORD:__missing__}") String pw;
 
     public static void main(String[] args) {
